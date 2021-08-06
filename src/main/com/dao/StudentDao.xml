@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main.com.dao.StudentDao">
+
+    <select id="get" parameterType="java.lang.String" resultType="main.com.domain.Student">
+        select * from users where userid=#{userid}
+    </select>
+
+    <insert id="save">
+        insert into users(username,password,sex,email)values(#{username},#{password},#{sex},#{email})
+    </insert>
+
+    <select id="getAll" parameterType="java.lang.String" resultType="main.com.domain.Student">
+        select * from users
+    </select>
+
+    <select id="like1" resultType="main.com.domain.Student">
+        select * from users where username like #{username}
+    </select>
+
+
+    <select id="like" resultType="main.com.domain.Student">
+        select * from users where username like '%'||#{username}||'%'
+    </select>
+
+    <select id="donglike" parameterType="main.com.domain.Student" resultType="main.com.domain.Student">
+
+        select * from users
+
+        <where>
+            <if test="username!=null and username!=''">
+                username like '%'||#{username}||'%'
+            </if>
+
+            <if test="email!=null and email!=''">
+
+                and email like '%'||#{email}||'%'
+
+            </if>
+
+        </where>
+
+    </select>
+
+</mapper>
